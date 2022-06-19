@@ -1,23 +1,33 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import { thousandSeparator } from '../Home';
+import { thousandSeparator } from '../../helpers/utils';
 import './index.scss';
 
-const Detail = ({ data }) => {
+const Detail = () => {
   const { id } = useParams();
 
   const [detail, setDetail] = useState([]);
+  
+  const getDetail = () => {
+    fetch(`http://localhost:3000/api/v1/product/${id}`)
+      .then(result => result.json())
+      .then(result => setDetail(result));
+    // if(detail.length < 1) {
+    //   setDetail(res.data);
+    // }
+    // return
+  }
 
   useEffect(() => {
-    // const getDetail = async () => {
-    //   const res = await axios(`http://localhost:3000/api/v1/product`);
-    //   setDetail(res.data[id-1]);
+    
+    // const getDetail = () => {
+    //   setDetail(data[id-1])
+    //   console.log(data)
     // }
-    const getDetail = () => {
-      setDetail(data[id-1])
-    }
     getDetail()
-  })
+    console.log(detail)
+  }, [])
 
   return (
     <div className="main">
@@ -35,7 +45,7 @@ const Detail = ({ data }) => {
           </tr>
           <tr>
             <td>Price</td>
-            <td>: Rp. {thousandSeparator(detail.price)}</td>
+            <td>: Rp. {detail.length < 1 ? 0 : thousandSeparator(detail.price)}</td>
           </tr>
           <tr>
             <td>Stock</td>

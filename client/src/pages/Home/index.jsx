@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
+import { thousandSeparator } from '../../helpers/utils';
 import './index.scss';
 
-export const thousandSeparator = (x) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
+// export const thousandSeparator = (x) => {
+//   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+// }
 
 const Home = ({ data }) => {
   return(
@@ -25,12 +26,12 @@ const Home = ({ data }) => {
           {
             data.map((d, i) => 
               <tr>
-                <td>{i+1}</td>
+                <td>{d._id}</td>
                 <td>{d.name}</td>
                 <td className="text-right">RP. {thousandSeparator(d.price)}</td>
                 <td className="text-center">
-                  <Link to={`/detail/${i+1}`} className="btn btn-sm btn-info">Detail</Link>
-                  <Link to={`/edit/${i+1}`} className="btn btn-sm btn-warning">Edit</Link>
+                  <Link to={`/detail/${d._id}`} className="btn btn-sm btn-info">Detail</Link>
+                  <Link to={`/edit/${d._id}`} className="btn btn-sm btn-warning">Edit</Link>
                   <Link to="#" className="btn btn-sm btn-danger">Delete</Link>
                 </td>
               </tr>
