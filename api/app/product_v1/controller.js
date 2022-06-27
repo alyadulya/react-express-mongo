@@ -26,6 +26,10 @@ const store = (req, res) => {
         db.collection('products').insertOne({name, price, stock, status, image_url: `http://localhost:3000/public/${image_url.originalname}`})
             .then(result => res.send(result))
             .catch(error => res.send(error));
+    } else {
+        db.collection('products').insertOne({name, price, stock, status})
+            .then(result => res.send(result))
+            .catch(error => res.send(error));
     }
 }
 

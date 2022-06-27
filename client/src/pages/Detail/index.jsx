@@ -4,30 +4,19 @@ import { Link, useParams } from "react-router-dom";
 import { thousandSeparator } from '../../helpers/utils';
 import './index.scss';
 
-const Detail = () => {
+const Detail = ({ data }) => {
   const { id } = useParams();
 
   const [detail, setDetail] = useState([]);
-  
-  const getDetail = () => {
-    fetch(`http://localhost:3000/api/v1/product/${id}`)
-      .then(result => result.json())
-      .then(result => setDetail(result));
-    // if(detail.length < 1) {
-    //   setDetail(res.data);
-    // }
-    // return
-  }
 
   useEffect(() => {
-    
-    // const getDetail = () => {
-    //   setDetail(data[id-1])
-    //   console.log(data)
-    // }
+    const getDetail = async () => {
+      await axios.get(`http://localhost:3000/api/v1/product/${id}`)
+        .then(res => setDetail(res.data))
+        .catch((e) => console.log(e));
+    }
     getDetail()
-    console.log(detail)
-  }, [])
+  }, [id])
 
   return (
     <div className="main">
@@ -37,7 +26,7 @@ const Detail = () => {
         <tbody>
           <tr>
             <td>ID</td>
-            <td>: {id}</td>
+            <td>: {data.map(d => d._id).indexOf(id) + 1}</td>
           </tr>
           <tr>
             <td>Name</td>
