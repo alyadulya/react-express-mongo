@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import swal from 'sweetalert';
 import Input from '../../components/Input';
 import './index.scss';
 
@@ -21,6 +22,10 @@ const Tambah = () => {
     })
     .then(res => console.log(res.data));
     history.push("/");
+    swal({
+      title: "Data berhasil ditambahkan!",
+      icon: "success"
+  });
 }
 
   return (

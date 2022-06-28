@@ -4,7 +4,8 @@ const path = require('path');
 const fs = require('fs');
 
 const index = (req, res) => {
-    db.collection('products').find()
+    const query = req.query.name || "";
+    db.collection('products').find({name: {$regex: `(?i).*${query}.*`}})
         .toArray()
         .then(result => res.send(result))
         .catch(error => res.send(error));
